@@ -1,33 +1,37 @@
 <template>
-  <v-form ref="form" v-model="valid">
+  <v-form ref="form" v-model="valid" class="form">
     <pre>
         {{ pessoa }}
     </pre>
 
-    <v-text-field v-model="pessoa.nome" :rules="nameRules" :counter="10" label="Name"></v-text-field>
+    <v-text-field v-model="pessoa.nome" :rules="rules.name" label="Name"></v-text-field>
 
-    <v-btn :disabled="!valid" color="success" @click="validate">Validate</v-btn>
+    <v-text-field v-model="pessoa.idade" :rules="rules.idade" label="Idade"></v-text-field>
+
+    <endereco-component :endereco="pessoa.endereco"/>
+
+    <v-btn color="success" @click="validate">Validate</v-btn>
 
     <v-btn color="error" @click="reset">Reset Form</v-btn>
 
     <v-btn color="warning" @click="resetValidation">Reset Validation</v-btn>
+
+    <router-view></router-view>
   </v-form>
 </template>
-<script lang="ts">
+<script lang='ts'>
 import { Vue, Prop, Component } from "vue-property-decorator";
 import Pessoa from "@/domain/pessoa/pessoa.entity";
 import FormDecorator from "@/shared/form/form.decorator";
+import EnderecoComponent from "@/shared/endereco/endereco.component.vue";
 
-@Component({})
+@Component({
+  components: { EnderecoComponent }
+})
 export default class PessoaCadastro extends Vue {
   pessoa = new Pessoa();
   form = new FormDecorator(this);
   valid = true;
-
-  nameRules = [
-    (v: any) => !!v || "Nome é obrigatório",
-    (v: any) => (v && v.length <= 10) || "Nome deve ter menos que 10 caracteres"
-  ];
 
   validate() {
     this.form.validate();
@@ -40,5 +44,17 @@ export default class PessoaCadastro extends Vue {
   resetValidation() {
     this.form.resetValidation();
   }
+
+  get rules(): any {
+    return {
+      cidade: [(v: any) => !!v || "Cidade é obrigatório"],
+      cep: [(v: any) => !!v || "CEP é obrigatório"],
+      logradouro: [(v: any) => !!v || "Logradouro é obrigatório"]
+    };
+  }
 }
 </script>
+<style lang="sass" scoped>
+.form
+  padding: 20px
+</style>

@@ -8,7 +8,7 @@ export class Endereco {
     constructor(obj?: any) {
         obj = obj || {};
         this.id = obj.id;
-        this.cidade = obj.cidade || '';
+        this.cidade = obj.cidade || 'Ai';
         this.cep = obj.cep || '';
         this.logradouro = obj.logradouro || '';
         this.complemento = obj.complemento || '';
