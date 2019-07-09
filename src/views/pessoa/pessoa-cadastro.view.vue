@@ -4,7 +4,7 @@
         {{ pessoa }}
     </pre>
 
-    <v-text-field v-model="pessoa.nome" :rules="rules.name" label="Name"></v-text-field>
+    <v-text-field v-model="pessoa.nome" :rules="rules.nome" label="Name"></v-text-field>
 
     <v-text-field v-model="pessoa.idade" :rules="rules.idade" label="Idade"></v-text-field>
 
@@ -47,9 +47,8 @@ export default class PessoaCadastro extends Vue {
 
   get rules(): any {
     return {
-      cidade: [(v: any) => !!v || "Cidade é obrigatório"],
-      cep: [(v: any) => !!v || "CEP é obrigatório"],
-      logradouro: [(v: any) => !!v || "Logradouro é obrigatório"]
+      nome: [(v: any) => !!v || "Nome é obrigatório"],
+      idade: [(v: any) => !!v || "Idade é obrigatório"]      
     };
   }
 }
