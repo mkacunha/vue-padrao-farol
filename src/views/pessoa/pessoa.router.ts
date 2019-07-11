@@ -6,14 +6,7 @@ export default [
   {
     path: '/cadastro',
     name: 'cadastro',
-    component: PessoaCadastro,
-    children: [
-      {
-        path: 'detail',
-        name: 'cadastroDetail',
-        component: PessoaCadastroDetail
-      }
-    ]
+    component: PessoaCadastro
   },
   {
     path: '/consulta',

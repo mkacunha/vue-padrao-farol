@@ -1,22 +1,12 @@
 <template>
-  <v-form ref="form" v-model="valid" class="form">
-    <pre>
-        {{ pessoa }}
-    </pre>
-
-    <v-text-field v-model="pessoa.nome" :rules="rules.name" label="Name"></v-text-field>
-
+  <v-form ref="form" v-model="valid" class="form">    
+    <pre>{{ pessoa }}</pre>
+    <v-text-field v-model="pessoa.nome" :rules="rules.nome" label="Name"></v-text-field>
     <v-text-field v-model="pessoa.idade" :rules="rules.idade" label="Idade"></v-text-field>
-
-    <endereco-component :endereco="pessoa.endereco"/>
-
+    <endereco-component v-model="pessoa.endereco" @valid="enderecoValid = $event"/>
     <v-btn color="success" @click="validate">Validate</v-btn>
-
     <v-btn color="error" @click="reset">Reset Form</v-btn>
-
     <v-btn color="warning" @click="resetValidation">Reset Validation</v-btn>
-
-    <router-view></router-view>
   </v-form>
 </template>
 <script lang='ts'>
@@ -31,7 +21,8 @@ import EnderecoComponent from "@/shared/endereco/endereco.component.vue";
 export default class PessoaCadastro extends Vue {
   pessoa = new Pessoa();
   form = new FormDecorator(this);
-  valid = true;
+  valid = false;
+  enderecoValid = false;
 
   validate() {
     this.form.validate();
@@ -47,9 +38,8 @@ export default class PessoaCadastro extends Vue {
 
   get rules(): any {
     return {
-      cidade: [(v: any) => !!v || "Cidade é obrigatório"],
-      cep: [(v: any) => !!v || "CEP é obrigatório"],
-      logradouro: [(v: any) => !!v || "Logradouro é obrigatório"]
+      nome: [(v: any) => !!v || "Nome é obrigatório"],
+      idade: [(v: any) => !!v || "Idade é obrigatório"]
     };
   }
 }

@@ -1,18 +1,14 @@
 <template>
   <v-form ref="form" @input="alteracaoForm">
-    <pre>
-            {{ endereco }}
-        </pre>
-
     <h2>Endereço</h2>
 
-    <v-text-field v-model="endereco.cidade" :rules="rules.cidade" label="Cidade" @input="'console.log(1)'"></v-text-field>
+    <v-text-field v-model="value.cidade" :rules="rules.cidade" label="Cidade"></v-text-field>
 
-    <v-text-field v-model="endereco.cep" :rules="rules.cep" label="CEP"></v-text-field>
+    <v-text-field v-model="value.cep" :rules="rules.cep" label="CEP"></v-text-field>
 
-    <v-text-field v-model="endereco.logradouro" :rules="rules.logradouro" label="Logradouro"></v-text-field>
+    <v-text-field v-model="value.logradouro" :rules="rules.logradouro" label="Logradouro"></v-text-field>
 
-    <v-text-field v-model="endereco.complemento" label="Complemento"></v-text-field>
+    <v-text-field v-model="value.complemento" label="Complemento"></v-text-field>
   </v-form>
 </template>
 
@@ -22,8 +18,8 @@ import { Endereco } from "@/domain/pessoa/endereco.entity";
 
 @Component({})
 export default class EnderecoComponent extends Vue {
-  @Prop({ required: true}) endereco?: Endereco;
 
+  @Prop({ required: true}) value?: Endereco;
 
   get rules(): any {
     return {
@@ -36,7 +32,7 @@ export default class EnderecoComponent extends Vue {
   alteracaoForm(valid: boolean) {
     this.$emit('valid', valid);
     if (valid) {
-      this.$emit('endereco', this.endereco);
+      this.$emit('input', this.value);
     }
   }
 }
