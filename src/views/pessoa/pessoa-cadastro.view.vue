@@ -1,6 +1,5 @@
 <template>
   <v-form ref="form" v-model="valid" class="form">    
-    <pre>{{ pessoa }}</pre>
     <v-text-field v-model="pessoa.nome" :rules="rules.nome" label="Name"></v-text-field>
     <v-text-field v-model="pessoa.idade" :rules="rules.idade" label="Idade"></v-text-field>
     <endereco-component v-model="pessoa.endereco" @valid="enderecoValid = $event"/>
