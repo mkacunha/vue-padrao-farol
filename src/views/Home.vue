@@ -1,18 +1,36 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+    <search v-on:filtro="filtro = $event"></search>
+    <lista :lista="pessoas"></lista>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
+import Search from '@/views/Search.component.vue';
+import Lista from '@/views/Lista.component.vue';
 
 @Component({
   components: {
-    HelloWorld,
+    Search,
+    Lista
   },
 })
-export default class Home extends Vue {}
+export default class Home extends Vue {
+  filtro = '';
+
+  valores = [
+    'Pessoa',
+    'Maiko',
+    'João',
+    'Lucas'
+  ]
+
+  get pessoas() {
+    if (this.filtro && this.filtro.length) {
+      return this.valores.filter(value => value.includes(this.filtro));
+    }
+    return this.valores;
+  }
+}
 </script>
